@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Twidere ANiUTa Extension</string>
-    <string name="aniuta">ANiUTa</string>
-    <string name="settings">Settings</string>
+	<string name="app_name">Twidere ANiUTa Extension</string>
+	<string name="aniuta">ANiUTa</string>
+	<string name="settings">Settings</string>
+	<string name="enable_notification_listener">Enable \"Twidere ANiUTa Extension\"\nthen go back to Twidere</string>
+	<string name="tweet">#nowplaying %1$s by %2$s</string>
 </resources>
