@@ -23,11 +23,13 @@ class MainActivity : AppCompatActivity() {
 
 		this.nowPlaying = NowPlaying()
 
-		if (this.notificationListenerIsEnabled()) {
-			this.nowPlaying.fetchMusicMetadata(this, this::onMusicMetadataFetched)
-		}
-		else {
-			this.showNotificationListenerSettings()
+		if (savedInstanceState == null) {
+			if (this.notificationListenerIsEnabled()) {
+				this.nowPlaying.fetchMusicMetadata(this, this::onMusicMetadataFetched)
+			}
+			else {
+				this.requestNotificationListenerSettings()
+			}
 		}
 	}
 
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 		return Settings.Secure.getString(this.contentResolver, "enabled_notification_listeners")?.split(":")?.any { it.startsWith(BuildConfig.APPLICATION_ID) } ?: false
 	}
 
-	private fun showNotificationListenerSettings() {
+	private fun requestNotificationListenerSettings() {
 		Toast.makeText(this, this.resources.getString(R.string.enable_notification_listener), Toast.LENGTH_LONG).show()
 		val intent = Intent()
 		intent.action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS

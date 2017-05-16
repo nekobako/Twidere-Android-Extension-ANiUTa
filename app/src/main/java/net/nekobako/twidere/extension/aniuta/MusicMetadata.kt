@@ -1,6 +1,5 @@
 package net.nekobako.twidere.extension.aniuta
 
-import android.app.Activity
 import android.content.*
 import android.graphics.Bitmap
 import android.net.Uri
@@ -35,8 +34,6 @@ class MusicMetadata(
 		parcel?.readParcelable<Bitmap>(Bitmap::class.java.classLoader) ?: Bitmap.createBitmap(0, 0, Bitmap.Config.ARGB_8888))
 
 	fun getArtworkUri(context: Context): Uri? {
-		var uri: Uri? = null
-
 		val directory = File(context.cacheDir, "artworks")
 		if (directory.exists()) {
 			directory.listFiles()
@@ -58,11 +55,8 @@ class MusicMetadata(
 			val file = File(directory, "$md5.png")
 			FileOutputStream(file).use { byteArrayOutputStream.writeTo(it) }
 
-			uri = FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
-			context.grantUriPermission((context as Activity).callingPackage, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+			return FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
 		}
-
-		return uri
 	}
 
 	override fun writeToParcel(parcel: Parcel?, flags: Int) {
